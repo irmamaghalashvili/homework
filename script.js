@@ -1,4 +1,4 @@
-'use strict';
+
 // davaleba 1
 function getNameAndYear() {
     fetch('https://reqres.in/api/unknown', {
@@ -21,7 +21,7 @@ function getNameAndYear() {
     })
     .catch(function() {
 
-    })
+    });
 }
 getNameAndYear();
 
@@ -105,20 +105,20 @@ function ajax() {
     .then(function(asJs) {
         asJs.forEach(item => {
            creatPosts(item);
-        })
+        });
     })
     .catch(function() {
 
-    })
+    });
 }
 function creatPosts(item) {
     let divWraper = document.createElement('div');
     divWraper.classList.add('posts');
 
-    let h4Tag = createElement('h4');
+    let h4Tag = document.createElement('h4');
     h4Tag.innerText = item.id;
 
-    let h2Tag = createElement('h2');
+    let h2Tag = document.createElement('h2');
     h2Tag.innerText = item.title;
 
     divWraper.appendChild(h4Tag);
