@@ -1,4 +1,3 @@
-
 // davaleba 1
 function getNameAndYear() {
     fetch('https://reqres.in/api/unknown', {
@@ -85,15 +84,16 @@ document.getElementById('next-btn-id').addEventListener('click' , function() {
 });
 getUsers(currentPage);
 
-
-
-
+// New Homework
 
 
 let mainWraper = document.getElementById('postWraper');
+let overlay = document.getElementById('overlay');
+let content = document.getElementById('content');
+let closeDiv = document.getElementById('close');
 
-function ajax() {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+function ajax(url, callback) {
+    fetch(url, {
         method: 'GET'
     })
     .then(function(asText){
@@ -103,17 +103,23 @@ function ajax() {
             return asText.json();
     })
     .then(function(asJs) {
-        asJs.forEach(item => {
-           creatPosts(item);
-        });
+        callback(asJs);
     })
     .catch(function() {
 
     });
 }
+ajax('https://jsonplaceholder.typicode.com/posts', function(asJs) {
+    asJs.forEach(item => {
+        creatPosts(item);
+     });
+});
+
+
 function creatPosts(item) {
     let divWraper = document.createElement('div');
     divWraper.classList.add('posts');
+    divWraper.setAttribute('data-id',item.id);
 
     let h4Tag = document.createElement('h4');
     h4Tag.innerText = item.id;
@@ -124,7 +130,26 @@ function creatPosts(item) {
     divWraper.appendChild(h4Tag);
     divWraper.appendChild(h2Tag);
 
+    divWraper.addEventListener('click', function(event) {
+        let id = event.target.getAttribute('data-id');
+        overlay.classList.add('active');
+        let newUrl = `https://jsonplaceholder.typicode.com/posts/${id}`;
+        ajax(newUrl, function(asJs) {
+            overlayFunction(asJs);
+        });
+    });
+
     mainWraper.appendChild(divWraper);
-    console.log(divWraper);
 }
-ajax();
+
+function overlayFunction(item) {
+    let description = document.createElement('p');
+    description.innerText = item.body;
+    description.classList.add('overlayP');
+    content.appendChild(description);
+}
+
+closeDiv.addEventListener('click', function() {
+    overlay.classList.remove('active');
+    content.innerHTML = ' ';
+});
