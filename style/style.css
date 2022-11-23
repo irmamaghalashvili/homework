@@ -62,12 +62,53 @@ h3 {
 .image-user {
     width: 120px;
 }
-
-
-.post {
+.post-wraper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.posts {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
     max-width: 700px;
     width: 100%;
     background-color: aqua;
     padding: 20px;
     margin-bottom: 30px;
+}
+.post-wraper-p {
+    font-size: 50px;
+    color: brown;
+    margin: 20px;
+}
+.overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 80%;
+    background-color: lightpink;
+    opacity: 90%;
+    display: none;
+}
+.overlay.active {
+    display: block;
+}
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: darkmagenta;
+}
+.overlayP {
+    font-size: 20px;
+    padding: 20px;
+    color: aliceblue;
 }
